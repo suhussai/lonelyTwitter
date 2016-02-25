@@ -46,7 +46,26 @@ public class LonelyTwitterActivity extends Activity {
 
         bodyText = (EditText) findViewById(R.id.body);
         Button saveButton = (Button) findViewById(R.id.save);
+        Button clearButton = (Button) findViewById(R.id.clear);
         oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                ElasticsearchTweetController.GetTweetsTask getTweetsTask = new ElasticsearchTweetController.GetTweetsTask();
+                getTweetsTask.execute(bodyText.getText().toString());
+                try {
+                    tweets.clear();
+                    tweets.addAll(getTweetsTask.get());
+                    adapter.notifyDataSetChanged();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
 
@@ -75,7 +94,7 @@ public class LonelyTwitterActivity extends Activity {
         // Get latest tweets
         // TODO: Replace with Elasticsearch
         ElasticsearchTweetController.GetTweetsTask getTweetsTask = new ElasticsearchTweetController.GetTweetsTask();
-        getTweetsTask.execute("test");
+        getTweetsTask.execute("kent");
         try {
             tweets = new ArrayList<Tweet>();
             tweets.addAll(getTweetsTask.get());
