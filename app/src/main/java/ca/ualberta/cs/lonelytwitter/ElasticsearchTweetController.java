@@ -46,7 +46,15 @@ public class ElasticsearchTweetController {
             /* NEW! */
             String search_string;
             if(params[0] == "") {
-                search_string = "{\"from\":0,\"size\":10000}";
+                search_string = "{\n" +
+                        "\"from\":0,\n" +
+                        "\"size\":10000,\n" +
+                        " \"sort\" : [\n" +
+                        "        { \"date\" : \"desc\"},\n" +
+                        "        \"_score\"\n" +
+                        "    ]\n" +
+                        "}\n";
+                //search_string = "{\"from\":0,\"size\":10000}";
             } else {
                 // The following gets the top 10000 tweets matching the string passed in
                 search_string = "{\"from\":0,\"size\":10000,\"query\":{\"match\":{\"message\":\"" + params[0] + "\"}}}";
