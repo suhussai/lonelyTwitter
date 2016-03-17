@@ -44,6 +44,8 @@ public class ElasticsearchTweetController {
             //String search_string = "{\"sort\": { \"date\": { \"order\": \"desc\" }}}";
 
             /* NEW! */
+            // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html
+
             String search_string;
             if(params[0] == "") {
                 search_string = "{\n" +

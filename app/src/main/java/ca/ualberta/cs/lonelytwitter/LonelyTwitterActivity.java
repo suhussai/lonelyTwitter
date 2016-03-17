@@ -122,6 +122,10 @@ public class LonelyTwitterActivity extends Activity {
         }
     }
 
+
+    // http://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property
+    // User: user1377710
+    // Date Thu-Mar-17
     public class CustomComparator implements Comparator<Tweet> {
         public int compare(Tweet o1, Tweet o2) {
             return o2.getDate().compareTo(o1.getDate());
